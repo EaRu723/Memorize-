@@ -4,13 +4,14 @@
 //
 //  Created by Andrea Russo on 11/3/23.
 //
-
 import SwiftUI
-
+#Preview {
+    ContentView()
+}
 struct ContentView: View {
     var body: some View {
         HStack {
-            CardView(isFaceUp: true)
+            CardView()
             CardView()
             CardView()
             CardView()
@@ -20,24 +21,25 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+
 struct CardView: View {
-    var isFaceUp: Bool = false
+    @State var isFaceUp = true
+    
     var body: some View {
-        ZStack {content:
+        ZStack {
+            var base = RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
             if isFaceUp{
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .strokeBorder(lineWidth: 5)
+                base.foregroundColor(.white)
+                base.strokeBorder(lineWidth: 5)
                 Text("🧂") .font(.largeTitle)
             }
             else {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                base.fill()
                     
             }
+        }
+        .onTapGesture {
+            isFaceUp.toggle()
         }
     }
 }
