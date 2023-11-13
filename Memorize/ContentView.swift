@@ -10,9 +10,10 @@ import SwiftUI
 }
 struct ContentView: View {
     let emojis:Array<String> = ["💀","👻","🎃","🧙‍♀️","😵","🦷","🥸","🫥","🫨","😈","👿","👹"]
-    @State var cardCount:  Int = 4
+    @State var cardCount:  Int = 8
     var body: some View {
         VStack{
+            title
             ScrollView{
                 cards
             }
@@ -29,6 +30,9 @@ struct ContentView: View {
         }
         .imageScale(.large)
         .font(.largeTitle)
+    }
+    var title: some View{
+        Text("Memorize!").font(.largeTitle)
     }
     var cards: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
