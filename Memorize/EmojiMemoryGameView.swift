@@ -4,29 +4,33 @@
 //
 //  Created by Andrea Russo on 11/3/23.
 //
+// SwiftUI View for the Emoji Memory Game. It includes a grid of cards and a shuffle button
 
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    @ObservedObject var ViewModel: EmojiMemoryGame = EmojiMemoryGame()
+    @ObservedObject var viewModel: EmojiMemoryGame = EmojiMemoryGame()
     
+    // the main view body
     var body: some View {
         VStack{
             ScrollView{
-                cards
+                cardGridView
             }
+            // shuffle button
             Button("Shuffle"){
-                ViewModel.shuffle()
+                viewModel.shuffle()
             }
             .padding()
         }
         
     }
     
-    var cards: some View{
+    // grid view of cards
+    var cardGridView: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0) {
-            ForEach(ViewModel.cards.indices, id: \.self) {index in
-                CardView(ViewModel.cards[index])
+            ForEach(viewModel.cards.indices, id: \.self) {index in
+                CardView(viewModel.cards[index])
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
             }
@@ -34,13 +38,14 @@ struct EmojiMemoryGameView: View {
         .foregroundColor(.orange)
     }
 
+    // View for each individual card
     struct CardView: View {
         let card: MemoryGame<String>.Card
         
         init(_ card: MemoryGame<String>.Card) {
             self.card = card
         }
-        
+        // the body of the card view
         var body: some View {
             ZStack {
                 let base = RoundedRectangle(cornerRadius: 12)
@@ -69,10 +74,10 @@ struct EmojiMemoryGameView: View {
     
     
     
-    
+    // preview provider for the EmojiMemoryGameView
     struct EmojiMemoryGameView_Previews: PreviewProvider {
         static var previews: some View{
-            EmojiMemoryGameView(ViewModel: EmojiMemoryGame())
+            EmojiMemoryGameView(viewModel: EmojiMemoryGame())
         }
     }
     
