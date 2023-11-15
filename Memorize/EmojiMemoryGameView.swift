@@ -7,7 +7,9 @@
 // SwiftUI View for the Emoji Memory Game. It includes a grid of cards and a shuffle button
 
 import SwiftUI
-
+#Preview {
+    EmojiMemoryGameView()
+}
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame = EmojiMemoryGame()
     
@@ -15,7 +17,8 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack{
             ScrollView{
-                cardGridView
+                cards
+                    .animation(.default, value: viewModel.cards)
             }
             // shuffle button
             Button("Shuffle"){
@@ -27,7 +30,7 @@ struct EmojiMemoryGameView: View {
     }
     
     // grid view of cards
-    var cardGridView: some View{
+    var cards: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0) {
             ForEach(viewModel.cards.indices, id: \.self) {index in
                 CardView(viewModel.cards[index])

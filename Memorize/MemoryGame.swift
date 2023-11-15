@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MemoryGame<CardContent>{
+struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     
     // Initialized a new memory game with a specific number of pairs of cards
@@ -34,7 +34,13 @@ struct MemoryGame<CardContent>{
         cards.shuffle()
     }
     // Definition of a single card in the memory game
-    struct Card {
+    struct Card: Equatable {
+        static func == (lhs: Card, rhs: Card) -> Bool {
+            return lhs.isFaceUp == rhs.isFaceUp &&
+            lhs.content == rhs.content &&
+            lhs.isMatched == rhs.isMatched
+        }
+        
         var isFaceUp = true
         var isMatched = false
         let content: CardContent

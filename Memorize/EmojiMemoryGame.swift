@@ -14,7 +14,7 @@ class EmojiMemoryGame: ObservableObject{
     
     // Factory method to create a new memory game
     private static func createMemoryGame() -> MemoryGame<String> {
-        return MemoryGame(numberOfPairsOfCards: 16) {pairIndex in
+        return MemoryGame(numberOfPairsOfCards: 12) {pairIndex in
             if emojis.indices.contains(pairIndex){
                 return emojis[pairIndex]
             } else {
